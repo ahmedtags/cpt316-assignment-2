@@ -63,3 +63,47 @@ The assignment requires building an application demonstrating the capability to 
    ```
 3. Open Node-RED editor (usually `http://localhost:1880`), select Import from the menu, and upload the [`flows.json`](flows.json) file.
 4. Deploy the flow to establish communication with the Python API and view the dashboard.
+
+---
+
+## 📸 Sample API Output
+
+**`GET /api/devices`** — List all monitored devices and current status:
+```json
+{
+  "active_count": 4,
+  "devices": [
+    {"id": 1, "name": "Air Conditioner", "power": 2000, "status": "active"},
+    {"id": 2, "name": "Refrigerator",    "power": 150,  "status": "active"},
+    {"id": 3, "name": "TV",              "power": 100,  "status": "inactive"},
+    {"id": 4, "name": "Washing Machine", "power": 500,  "status": "inactive"},
+    {"id": 5, "name": "Lights",          "power": 60,   "status": "active"},
+    {"id": 6, "name": "computer",        "power": 20,   "status": "active"}
+  ],
+  "timestamp": "2025-11-15T14:32:10.847321",
+  "total_power": 2230
+}
+```
+
+**`GET /api/consumption`** — Real-time power consumption:
+```json
+{
+  "current_power_watts": 2257,
+  "daily_consumption_kwh": 54.17,
+  "timestamp": "2025-11-15T14:32:12.013455"
+}
+```
+
+**`GET /api/cost`** — Electricity cost estimation (Malaysia TNB rates):
+```json
+{
+  "current_power_watts": 2230,
+  "daily_cost_rm": 30.51,
+  "monthly_cost_rm": 915.35,
+  "rate_per_kwh": 0.57,
+  "timestamp": "2025-11-15T14:32:13.204871",
+  "yearly_cost_rm": 11136.86
+}
+```
+
+> Node-RED dashboard reads these endpoints on a 5-second interval and renders live power gauges and cost charts.
